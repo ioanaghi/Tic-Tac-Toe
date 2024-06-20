@@ -8,7 +8,6 @@ char token='X';
 string p1;
 string p2;
 bool resulttie;
-int cnt=0;
 
 void first()
 {
@@ -26,8 +25,6 @@ void first()
     cout<<"      |       |      \n";
     cout<<"  "<<game[2][0]<<"   |   " <<game[2][1]<<"   |   "<<game[2][2]<<"  \n";
     cout<<"      |       |      \n";
-
-    cout<<endl<<endl<<endl;
    
 }
 
@@ -52,55 +49,46 @@ void second()
     {
         row=0;
         column=0;
-        cnt++;
     }
     if(digit==2)
     {
         row=0;
         column=1;
-        cnt++;
     }
     if(digit==3)
     {
         row=0;
         column=2;
-        cnt++;
     }
     if(digit==4)
     {
         row=1;
         column=0;
-        cnt++;
     }
     if(digit==5)
     {
         row=1;
-        column=1;
-        cnt++;
+        column=2;
     }
     if(digit==6)
     {
         row=1;
-        column=2;
-        cnt++;
+        column=3;
     }
     if(digit==7)
     {
         row=2;
         column=0;
-        cnt++;
     }
     if(digit==8)
     {
         row=2;
         column=1;
-        cnt++;
     }
     if(digit==9)
     {
         row=2;
         column=2;
-        cnt++;
     }
     if(digit<1||digit>9)
         {
@@ -133,28 +121,21 @@ void second()
 bool result()
 {
     resulttie=false;
-    //check on row and column
     for(int i=0;i<3;i++)
     {
-        if((game[i][0]==game[i][1]&&game[i][0]==game[i][2])||(game[0][i]==game[1][i]&&game[2][i]==game[0][i]))
+        if((game[i][0]==game[i][0]&&game[i][0]==game[i][2])||(game[0][i]==game[1][i]&&game[2][i]==game[0][i]))
             return true;
-    }
-    //ceck on diagonal
-
+    }//check on row and column
     if((game[0][0]==game[1][1]&&game[0][0]==game[2][2])||(game[0][2]==game[1][1]&&game[0][2]==game[2][0]))
         return true;
-    
-    //check if the game is still ongoing
+    //ceck on diagonal
     for(int i=0;i<3;i++)
     {
-        for(int j=0;j<3;j++)
+        for(int j=0;i<3;j++)
             if(game[i][j]!='X'&&game[i][j]!='O')
                 return false;
     }
-    
     resulttie=true;
-    if(cnt==9)
-        return true;
     return false;
 }
 
@@ -179,17 +160,12 @@ int main()
         second();
         result();
     }
-    if(resulttie&&cnt==9)
-        cout<<"It's a draw!"<<endl;
-    if(token=='X')
-        {
+    if(token=='X' && resulttie==false)
             cout <<p2<<" has won the game!"<<endl;
-            return 0;
-        }
-    if(token=='O')
-        {
+    else
+        if(token=='0'&& resulttie==false)
             cout << p1 <<" has won the game!"<<endl;
-            return 0;
-        }
+            else
+            cout<<"It's a draw!"<<endl;
     return 0;
 }
